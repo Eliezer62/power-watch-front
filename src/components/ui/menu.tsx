@@ -4,7 +4,7 @@ import { FileOutlined, HomeOutlined, SettingOutlined, UserOutlined, WifiOutlined
 export default function Menu() {
 
     return (
-        <div className="bg-primary h-[100vh] w-[60px] fixed top-0 left-0">
+        <div className="bg-primary dark:bg-neutral-900 h-[100vh] w-[60px] fixed top-0 left-0">
             <img src='/logos/logo_dark.png' className="mt-1"/>
             <nav className="flex justify-center items-center h-[100vh]">
                 <ul className="flex justify-center flex-col items-center gap-[1.5rem]">
