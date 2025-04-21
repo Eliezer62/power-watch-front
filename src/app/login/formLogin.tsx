@@ -16,7 +16,6 @@ export default function FormLogin() {
         setDarkMode(prefersDarkMode.matches);
 
         const handleChange = (event: MediaQueryListEvent) => {
-            console.log("Foi");
             setDarkMode(event.matches);
           };
       
