@@ -2,10 +2,8 @@
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -36,7 +34,10 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
-
+import { UserServiceFromAPI } from "../infra/services/UserServiceFromAPI"
+import User from "../core/domain/User"
+import { UserRole } from "../core/enum/UserRole"
+import { toast, Toaster } from "sonner"
 
 const formSchema = z.object({
     name: z.string({required_error:"Nome é obrigatório"})
@@ -48,7 +49,9 @@ const formSchema = z.object({
   })
 
 export default function NewUser() {
+    const service = new UserServiceFromAPI();
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -58,9 +61,29 @@ export default function NewUser() {
     })
 
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
-        setOpen(false);
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        setLoading(true);
+        const user = new User()
+                        .setId('')
+                        .setName(values.name)
+                        .setEmail(values.email)
+                        .setRole(values.role as UserRole)
+                        .build();
+        
+        try {
+            await service.create(user)
+                        .then(() => {
+                            toast("Criado com sucesso");
+                            setTimeout(() => {
+                                setOpen(false);
+                                setLoading(false);
+                            }, 3000)
+                        });
+        } catch (error) {
+            console.log(error);
+            toast(`${error}`);
+            setLoading(false);
+        }
     }
 
 
@@ -72,7 +95,7 @@ export default function NewUser() {
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
                     <DialogTitle>Novo Usuário</DialogTitle>
-                    <DialogDescription>Adicione um novo usuário ao sistema, a senha inicial é sempre <span className="font-bold">powerwatch</span></DialogDescription>
+                    <DialogDescription>Adicione um novo usuário ao sistema, a senha inicial é sempre <span className="font-bold">temporaria</span></DialogDescription>
                 </DialogHeader>
                 <div>
                     <Form {...form}>
@@ -84,7 +107,7 @@ export default function NewUser() {
                                     <FormItem>
                                         <FormLabel>Nome</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Nome Completo" {...field}/>
+                                            <Input placeholder="Nome Completo" {...field} disabled={loading}/>
                                         </FormControl>
                                         <FormDescription>Nome Completo do Usuário</FormDescription>
                                         <FormMessage />
@@ -99,7 +122,7 @@ export default function NewUser() {
                                     <FormItem>
                                         <FormLabel>E-mail</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="example@example.com" type="email" {...field}/>
+                                            <Input placeholder="example@example.com" type="email" {...field}  disabled={loading}/>
                                         </FormControl>
                                         <FormDescription>E-mail de acesso do usuário</FormDescription>
                                         <FormMessage />
@@ -113,7 +136,7 @@ export default function NewUser() {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Perfil</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}  disabled={loading}>
                                             <FormControl>
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Selecione um perfil para o Usuário" />
@@ -134,10 +157,11 @@ export default function NewUser() {
                                 )}
                             />
                             <div className="flex justify-end">
-                                <Button type="submit">Salvar</Button>
+                                <Button type="submit"  disabled={loading}>Salvar</Button>
                             </div>
                         </form>
                     </Form>
+                    <Toaster />
                 </div>
             </DialogContent>
         </Dialog>
