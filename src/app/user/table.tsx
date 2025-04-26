@@ -11,12 +11,13 @@ import {
   } from "@/components/ui/table"
 import { EditOutlined, MinusCircleOutlined } from "@ant-design/icons"
 import { SearchIcon } from "lucide-react"
+import NewUser from "./new.user"
 
 export default function TableUser() {
     return (
         <div>
             <div className="flex w-[100vw] h-[75px] p-10 items-center flex-row-reverse gap-[24px]">
-                <Button>Adicionar</Button>
+                <NewUser />
                 <div className="flex ">
                     <Input className="w-[30vw] bg-white dark:text-white"/>
                     <Button><SearchIcon /></Button>
