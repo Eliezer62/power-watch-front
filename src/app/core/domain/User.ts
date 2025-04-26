@@ -52,4 +52,13 @@ export default class User {
     build() {
         return this;
     }
+
+    toObject() {
+        return {
+          id: this.#id,
+          name: this.#name,
+          email: this.#email,
+          role: this.#role,
+        };
+    }
 }
