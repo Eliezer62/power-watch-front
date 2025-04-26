@@ -19,6 +19,11 @@ export class UserServiceFromAPI implements UserService {
                     });
     }
 
+    async findAll():Promise<User[]> {
+        return await axios.get(process.env.NEXT_PUBLIC_API_URL+'/user')
+                            .then((response) => response.data);
+    }
+
     async findById(id:string):Promise<User> {
         return await axios.get( process.env.NEXT_PUBLIC_API_URL+'/user/'+id)
                     .then((response) => response.data)
