@@ -8,11 +8,11 @@ export default function Menu() {
             <img src='/logos/logo_dark.png' className="mt-[1rem]"/>
             <nav className="flex justify-center items-center h-[100vh]">
                 <ul className="flex justify-center flex-col items-center gap-[1.5rem]">
-                    <li className="text-white text-2xl hover:text-[#68A6E0]"><HomeOutlined /></li>
-                    <li className="text-white text-2xl hover:text-[#68A6E0]"><FileOutlined /></li>
-                    <li className="text-white text-2xl hover:text-[#68A6E0]"><WifiOutlined /></li>
-                    <li className="text-white text-2xl hover:text-[#68A6E0]" onClick={() => location.href = '/user'}><UserOutlined /></li>
-                    <li className="text-white text-2xl hover:text-[#68A6E0]"><SettingOutlined /></li>
+                    <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer"><HomeOutlined /></li>
+                    <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer"><FileOutlined /></li>
+                    <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer"><WifiOutlined /></li>
+                    <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer" onClick={() => location.href = '/user'}><UserOutlined /></li>
+                    <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer"><SettingOutlined /></li>
                 </ul>
             </nav>
         </div>
