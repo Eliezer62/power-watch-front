@@ -1,4 +1,4 @@
-import { User } from "@/app/core/domain/User"
+import User from "@/app/core/domain/User"
 import { UserService } from "@/app/core/services/UserService";
 import axios from "axios";
 import "reflect-metadata";
@@ -7,18 +7,24 @@ import { injectable } from "inversify";
 @injectable()
 export class UserServiceFromAPI implements UserService {
     async create(user:User):Promise<User> {
-        return await axios.post(process.env.API_URL+'/user', user)
+        return await axios.post(process.env.NEXT_PUBLIC_API_URL+'/user', user.toObject())
                     .then((response) => response.data)
                     .catch((error) => {
-                        throw new Error(error)
+                        var message = '';
+                        if(error.response) {
+                            message = error.response.data?.msg??'';
+                        }
+                        else message = error.message;
+                        throw new Error(message)
                     });
     }
 
     async findById(id:string):Promise<User> {
-        return await axios.get(process.env.API_URL+'/user/'+id)
+        return await axios.get( process.env.NEXT_PUBLIC_API_URL+'/user/'+id)
                     .then((response) => response.data)
                     .catch((error) => {
-                        throw new Error(error)
+                        
+                        throw new Error("Erro: "+error.message);
                     });
     }
 
@@ -27,7 +33,7 @@ export class UserServiceFromAPI implements UserService {
     }
 
     async update(user:User):Promise<User> {
-        return await axios.put(process.env.API_URL+'/user/'+user.id, user)
+        return await axios.put( process.env.NEXT_PUBLIC_API_URL+'/user/'+user.getId(), user.toObject())
                     .then((response) => response.data)
                     .catch((error) => {
                         throw new Error(error)
@@ -35,6 +41,6 @@ export class UserServiceFromAPI implements UserService {
     }
 
     async delete(id:string):Promise<void> {
-        await axios.delete(process.env.API_URL+'/user/'+id);
+        await axios.delete( process.env.NEXT_PUBLIC_API_URL+'/user/'+id);
     }
 }
