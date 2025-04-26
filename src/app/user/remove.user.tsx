@@ -1,4 +1,4 @@
-
+'use client'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -12,8 +12,14 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { MinusCircleOutlined } from "@ant-design/icons"
+import { UserServiceFromAPI } from "../infra/services/UserServiceFromAPI"
 
 export default function RemoveUser(props:any) {
+
+    const service = new UserServiceFromAPI();
+    const remove = (id:string) => {
+        service.delete(id);
+    }
 
     return (
         <AlertDialog>
@@ -29,7 +35,7 @@ export default function RemoveUser(props:any) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                    <AlertDialogAction>Continuar</AlertDialogAction>
+                    <AlertDialogAction onClick={() => remove(props.user.id)}>Continuar</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

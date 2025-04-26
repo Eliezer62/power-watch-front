@@ -58,7 +58,7 @@ export default function TableUser() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {users.map((user, index) => {
+                        { users.map((user, index) => {
                             return (
                                 <TableRow key={index}>
                                     <TableCell className="dark:text-white">{user.name}</TableCell>
@@ -66,7 +66,7 @@ export default function TableUser() {
                                     <TableCell className="dark:text-white">{user.role}</TableCell>
                                     <TableCell className="flex gap-[0.5rem]">
                                         <Button className="border-2 border-primary bg-transparent text-primary hover:bg-gray-200 hover:border-gray-700"><EditOutlined /></Button>
-                                        <RemoveUser user={{name:user.name}}/>
+                                        <RemoveUser user={user}/>
                                     </TableCell>
                                 </TableRow>
                             )
