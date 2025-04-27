@@ -35,7 +35,7 @@ export default function RemoveUser(props:any) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => remove(props.user.id)}>Continuar</AlertDialogAction>
+                    <AlertDialogAction onClick={() => remove(props.user.getId())}>Continuar</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

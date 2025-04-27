@@ -8,7 +8,7 @@ import { injectable } from "inversify";
 export class UserServiceFromAPI implements UserService {
     async create(user:User):Promise<User> {
         return await axios.post(process.env.NEXT_PUBLIC_API_URL+'/user', user.toObject())
-                    .then((response) => response.data)
+                    .then((response) => User.fromObject(response.data))
                     .catch((error) => {
                         var message = '';
                         if(error.response) {
@@ -21,14 +21,13 @@ export class UserServiceFromAPI implements UserService {
 
     async findAll():Promise<User[]> {
         return await axios.get(process.env.NEXT_PUBLIC_API_URL+'/user')
-                            .then((response) => response.data);
+                            .then((response) => response.data.map((data:Object) => User.fromObject(data)));
     }
 
     async findById(id:string):Promise<User> {
         return await axios.get( process.env.NEXT_PUBLIC_API_URL+'/user/'+id)
-                    .then((response) => response.data)
+                    .then((response) => User.fromObject(response.data))
                     .catch((error) => {
-                        
                         throw new Error("Erro: "+error.message);
                     });
     }
@@ -39,7 +38,7 @@ export class UserServiceFromAPI implements UserService {
 
     async update(user:User):Promise<User> {
         return await axios.put( process.env.NEXT_PUBLIC_API_URL+'/user/'+user.getId(), user.toObject())
-                    .then((response) => response.data)
+                    .then((response) => User.fromObject(response.data))
                     .catch((error) => {
                         throw new Error(error)
                     });

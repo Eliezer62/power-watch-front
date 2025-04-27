@@ -61,4 +61,8 @@ export default class User {
           role: this.#role,
         };
     }
+
+    static fromObject(json:any):User {
+        return new User(json.id, json.name, json.email, json.role as UserRole);
+    }
 }
