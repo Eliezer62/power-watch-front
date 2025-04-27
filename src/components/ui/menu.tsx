@@ -10,7 +10,7 @@ export default function Menu() {
                 <ul className="flex justify-center flex-col items-center gap-[1.5rem]">
                     <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer"><HomeOutlined /></li>
                     <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer"><FileOutlined /></li>
-                    <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer"><WifiOutlined /></li>
+                    <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer" onClick={() => location.href='/device'}><WifiOutlined /></li>
                     <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer" onClick={() => location.href = '/user'}><UserOutlined /></li>
                     <li className="text-white text-2xl hover:text-[#68A6E0] cursor-pointer"><SettingOutlined /></li>
                 </ul>
