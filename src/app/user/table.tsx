@@ -18,6 +18,7 @@ import RemoveUser from "./remove.user"
 import { useEffect, useState } from "react"
 import { UserServiceFromAPI } from "../infra/services/UserServiceFromAPI"
 import User from '@/app/core/domain/User'
+import EditUser from "./edit.user"
 
 export default function TableUser() {
     const [users, setUsers] = useState<User[]>([]);
@@ -61,11 +62,11 @@ export default function TableUser() {
                         { users.map((user, index) => {
                             return (
                                 <TableRow key={index}>
-                                    <TableCell className="dark:text-white">{user.name}</TableCell>
-                                    <TableCell className="dark:text-white">{user.email}</TableCell>
-                                    <TableCell className="dark:text-white">{user.role}</TableCell>
+                                    <TableCell className="dark:text-white">{user.getName()}</TableCell>
+                                    <TableCell className="dark:text-white">{user.getEmail()}</TableCell>
+                                    <TableCell className="dark:text-white">{user.getRole()}</TableCell>
                                     <TableCell className="flex gap-[0.5rem]">
-                                        <Button className="border-2 border-primary bg-transparent text-primary hover:bg-gray-200 hover:border-gray-700"><EditOutlined /></Button>
+                                        <EditUser user={user} />
                                         <RemoveUser user={user}/>
                                     </TableCell>
                                 </TableRow>
