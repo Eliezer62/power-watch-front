@@ -93,7 +93,7 @@ export default class Sensor {
         }
     }
 
-    fromObject(json:any):Sensor {
+    static fromObject(json:any):Sensor {
         return new Sensor(json.id, json.name, json.model, json.notes, json.local, json.status);
     }
 }
