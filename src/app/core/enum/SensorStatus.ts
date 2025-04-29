@@ -1,6 +1,6 @@
 export enum SensorStatus {
-    active,
-    inactive,
-    manutention,
-    instalation
+    active="active",
+    inactive="inactive",
+    manutention="manutention",
+    instalation="instalation"
 }
