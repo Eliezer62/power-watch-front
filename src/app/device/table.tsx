@@ -11,25 +11,25 @@ import {
     TableRow,
   } from "@/components/ui/table"
 
-import { EditOutlined } from "@ant-design/icons"
 import { SearchIcon } from "lucide-react"
 import NewDevice from "./new.device"
-import RemoveUser from "./remove.user"
 import { useEffect, useState } from "react"
-import { UserServiceFromAPI } from "../infra/services/UserServiceFromAPI"
-import User from '@/app/core/domain/User'
-import EditUser from "./edit.user"
+import { SensorServiceFromAPI } from "../infra/services/SensorServiceFromAPI"
+import Sensor from "../core/domain/Sensor"
+import EditSensor from "./edit.device"
+import RemoveSensor from "./remove.device"
 
 export default function TableUser() {
-    const [users, setUsers] = useState<User[]>([]);
+    const [sensors, setSensors] = useState<Sensor[]>([]);
     const [updateTime, setUpdateTime] = useState(0);
 
-    const service = new UserServiceFromAPI();
+    const service = new SensorServiceFromAPI();
 
     useEffect(() => {
         const timeout = setInterval(() => {
-            service.findAll().then((resp) => setUsers(resp));
+            service.findAll().then((resp) => setSensors(resp));
             setUpdateTime(3000);
+            console.log(sensors);
         }, updateTime);
 
         return () => {
@@ -49,7 +49,7 @@ export default function TableUser() {
             </div>
             <div className="table-user ml-[75px] mr-[15px]">
                 <Table className="bg-white dark:bg-gray-950 rounded-md">
-                    <TableCaption>Usuários Cadastrados</TableCaption>
+                    <TableCaption>Sensores Cadastrados</TableCaption>
                     <TableHeader>
                         <TableRow>
                             <TableHead>Nome</TableHead>
@@ -59,15 +59,15 @@ export default function TableUser() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        { users.map((user, index) => {
+                        { sensors.map((sensor, index) => {
                             return (
                                 <TableRow key={index}>
-                                    <TableCell className="dark:text-white">{user.getName()}</TableCell>
-                                    <TableCell className="dark:text-white">{user.getEmail()}</TableCell>
-                                    <TableCell className="dark:text-white">{user.getRole()}</TableCell>
+                                    <TableCell className="dark:text-white">{sensor.getName()}</TableCell>
+                                    <TableCell className="dark:text-white">{sensor.getModel()}</TableCell>
+                                    <TableCell className="dark:text-white">{sensor.getLocal()}</TableCell>
                                     <TableCell className="flex gap-[0.5rem]">
-                                        <EditUser user={user} />
-                                        <RemoveUser user={user}/>
+                                        <EditSensor sensor = {sensor}/>
+                                        <RemoveSensor sensor = {sensor} />
                                     </TableCell>
                                 </TableRow>
                             )
