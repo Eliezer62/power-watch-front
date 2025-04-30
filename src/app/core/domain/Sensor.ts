@@ -1,18 +1,18 @@
 import { SensorStatus } from "../enum/SensorStatus";
 
 export default class Sensor {
-    #id: string;
+    #id: string | null;
     #name: string;
     #model: string;
-    #notes: string;
+    #notes: string | null;
     #local: string;
     #status: SensorStatus;
 
     constructor(
-        id: string,
+        id: string | null,
         name: string,
         model: string,
-        notes: string,
+        notes: string | null,
         local: string,
         status: SensorStatus,
     ) {
@@ -24,7 +24,7 @@ export default class Sensor {
         this.#status = status;
     }
 
-    getId(): string {
+    getId(): string | null {
         return this.#id;
     }
 
@@ -51,7 +51,7 @@ export default class Sensor {
         return this;
     }
 
-    getNotes(): string {
+    getNotes(): string | null {
         return this.#notes;
     }
 
