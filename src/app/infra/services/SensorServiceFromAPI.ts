@@ -18,13 +18,13 @@ export class SensorServiceFromAPI implements SensorService {
                         });
     }
 
-    async findAll(): Promise<Sensor> {
-        return await axios.get(process.env.NEXT_PUBLIC_API_UR+'/sensor')
+    async findAll(): Promise<Sensor[]> {
+        return await axios.get(process.env.NEXT_PUBLIC_API_URL+'/sensor')
                         .then((response) => response.data.map((data:Object) => Sensor.fromObject(data)));
     }
 
     async findById(id: string): Promise<Sensor> {
-        return await axios.get(process.env.NEXT_PUBLIC_API_UR+'/sensor/'+id)
+        return await axios.get(process.env.NEXT_PUBLIC_API_URL+'/sensor/'+id)
                         .then((response) => Sensor.fromObject(response.data))
                         .catch((error) => {
                             throw new Error(error)
